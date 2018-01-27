@@ -1,13 +1,17 @@
-using TestImages
+# Run all the code up until the variable definitions to load functions to memory
+
+using TestImages #You don't need this line when using local files
 using Images
-using Plots
+
+##### Define the fitness function 
+
 
 function fitness(a,b)
     score = sqrt(512*512-sum((a - b).^2))
     return score
 end
 
-#colorview(Gray, initial_pop[1,:,:])
+# gets the difference between the value (0 is black, 1 is white) of all pixels in one of the population arrays and the pixels in the target array
 
 function all_fit(pop, t)
     fitness_vec =  zeros(N)
@@ -18,7 +22,7 @@ function all_fit(pop, t)
     return fitness_vec
 end
 
-
+# Generates a child using parameters set below
 
 function genfilho(cdf,pop,crossover, prob_m, hillclimbing, sigma_hc, dim)
     if prob_m > rand()
@@ -46,7 +50,7 @@ function genfilho(cdf,pop,crossover, prob_m, hillclimbing, sigma_hc, dim)
     return filho
 end
 
-
+# get the best members of the population
 function get_best_members(fitness_vec_prob,pop,N,percentage_best)
     ord_vec = reverse(sortperm(fitness_vec_prob))
     filhos = pop[ord_vec[1:Int(floor(N*percentage_best))],:,:]
@@ -78,26 +82,28 @@ end
 
 
 
+############################# STOP FIRST RUN HERE #######################
 
-
-
+#Show a sample start image
 sample_img = rand(512,512)
 colorview(Gray, sample_img)
 
 
+#Define your variables
 target = testimage("livingroom")
-target_float = float(target)
-dim = size(target_float)
-N = 100
+target_float = float(target) #convert img to array
+dim = size(target_float) #get size of array
+N = 100 
 percentage_best = 0.15
 sigma = 0.05
-pop = rand(N,dim[1], dim[2])
+pop = rand(N,dim[1], dim[2]) #empty pop vector
 nr_epochs = 300
 crossover = true
 prob_m = 0.05
 hillclimbing = false
 sigma_hc = 0.05
 
+#loop all the code "nr_epochs" times
 
 for i in 1:nr_epochs
     colorview(Gray, pop[1,:,:])

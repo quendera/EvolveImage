@@ -39,4 +39,4 @@ At the end of any epoch you can use the functionality of (Images.Jl)[https://git
 >colorview(Gray, pop[1,:,:])
 
 # Have fun!
-![noise](/images/noise.png)
+![noise](/images/noise.tif) ![noise](/images/livingroom.tif)
